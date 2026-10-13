@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo - TuRegaloDigital</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .font-romantic {
+      font-family: 'Dancing Script', cursive;
+    }
+
+    /* Floating Hearts Animation */
+    .bg-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .heart-particle {
+      position: absolute;
+      bottom: -10%;
+      color: rgba(255, 255, 255, 0.4);
+      animation: floatUp 8s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg) scale(0.8);
+        opacity: 0;
+      }
+      20% { opacity: 0.7; }
+      80% { opacity: 0.7; }
+      100% {
+        transform: translateY(-110vh) rotate(360deg) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    /* Glassmorphism Effect */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Envelope Interactive Animation */
+    .envelope-container {
+      perspective: 1000px;
+    }
+
+    .envelope {
+      transition: all 0.5s ease-in-out;
+      transform-style: preserve-3d;
+    }
+
+    .envelope.open .flap {
+      transform: rotateX(180deg);
+      z-index: 0;
+    }
+
+    .envelope.open .letter {
+      transform: translateY(-80px);
+      z-index: 10;
+      opacity: 1;
+      max-height: 1000px;
+    }
+
+    .flap {
+      transform-origin: top;
+      transition: transform 0.4s ease-in-out;
+      z-index: 5;
+    }
+
+    .letter {
+      transition: all 0.5s ease-in-out 0.2s;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center p-4 sm:p-6 relative">
+
+  <!-- Floating Hearts Particles -->
+  <div class="bg-hearts" id="heartsContainer"></div>
+
+  <main class="glass-card w-full max-w-xl rounded-3xl p-6 sm:p-8 relative z-10 text-slate-800 my-6">
+    
+    <!-- Branding Header -->
+    <div class="text-center mb-6">
+      <span class="inline-flex items-center gap-1.5 bg-rose-100 text-rose-600 font-semibold px-3 py-1 rounded-full text-xs tracking-wide uppercase border border-rose-200 shadow-sm">
+        <i class="fa-solid fa-sparkles">搞 Demo interactiva</i> • TuRegaloDigital
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3 font-romantic tracking-wide">
+        Nuestra Historia De Amor ❤️
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-500 mt-1">
+        Así se verá la página exclusiva dedicada a tu pareja
+      </p>
+    </div>
+
+    <!-- Music Player Feature Simulation -->
+    <div class="bg-white/80 rounded-2xl p-3.5 mb-6 border border-rose-100 shadow-sm flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <button id="musicToggle" class="w-10 h-10 rounded-full bg-rose-500 text-white flex items-center justify-center shadow-md hover:bg-rose-600 transition-transform active:scale-95">
+          <i class="fa-solid fa-play text-sm ml-0.5" id="musicIcon"></i>
+        </button>
+        <div>
+          <p class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+            🎵 Vuestra Canción Especial
+          </p>
+          <p class="text-[11px] text-slate-500">
+            (Opción de incluir su música favorita de fondo)
+          </p>
+        </div>
+      </div>
+      <div class="hidden sm:flex items-center gap-1 text-rose-400 text-xs">
+        <i class="fa-solid fa-waveform animate-pulse"></i>
+        <i class="fa-solid fa-heart text-xs"></i>
+      </div>
+    </div>
+
+    <!-- Real-time Relationship Counter -->
+    <div class="bg-gradient-to-br from-rose-50/80 to-pink-50/80 rounded-2xl p-5 mb-8 border border-rose-100/80 text-center shadow-inner">
+      <p class="text-xs font-bold uppercase tracking-wider text-rose-500 mb-3 flex items-center justify-center gap-1">
+        <i class="fa-solid fa-clock-rotate-left"></i> Tiempo Juntos
+      </p>
+      
+      <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+        <div class="bg-white/90 p-2.5 rounded-xl border border-rose-100 shadow-sm">
+          <span class="block text-xl sm:text-2xl font-extrabold text-rose-600" id="years">0</span>
+          <span class="text-[10px] font-semibold text-slate-400 uppercase">Años</span>
+        </div>
+        <div class="bg-white/90 p-2.5 rounded-xl border border-rose-100 shadow-sm">
+          <span class="block text-xl sm:text-2xl font-extrabold text-rose-600" id="months">0</span>
+          <span class="text-[10px] font-semibold text-slate-400 uppercase">Meses</span>
+        </div>
+        <div class="bg-white/90 p-2.5 rounded-xl border border-rose-100 shadow-sm">
+          <span class="block text-xl sm:text-2xl font-extrabold text-rose-600" id="days">0</span>
+          <span class="text-[10px] font-semibold text-slate-400 uppercase">Días</span>
+        </div>
+        <div class="bg-white/90 p-2.5 rounded-xl border border-rose-100 shadow-sm">
+          <span class="block text-xl sm:text-2xl font-extrabold text-rose-600" id="hours">0</span>
+          <span class="text-[10px] font-semibold text-slate-400 uppercase">Horas</span>
+        </div>
+        <div class="bg-white/90 p-2.5 rounded-xl border border-rose-100 shadow-sm">
+          <span class="block text-xl sm:text-2xl font-extrabold text-rose-600" id="minutes">0</span>
+          <span class="text-[10px] font-semibold text-slate-400 uppercase">Min</span>
+        </div>
+        <div class="bg-white/90 p-2.5 rounded-xl border border-rose-100 shadow-sm">
+          <span class="block text-xl sm:text-2xl font-extrabold text-rose-600" id="seconds">0</span>
+          <span class="text-[10px] font-semibold text-slate-400 uppercase">Seg</span>
+        </div>
+      </div>
+      <p class="text-[11px] text-slate-400 mt-3 italic">
+        * Configurado con la fecha de inicio del proyecto (14 de octubre de 2026)
+      </p>
+    </div>
+
+    <!-- Interactive Love Letter Envelope -->
+    <div class="mb-8">
+      <div class="text-center mb-2">
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+          ✉️ Mensaje Personalizado
+        </span>
+      </div>
+
+      <div class="bg-rose-50/50 rounded-2xl p-4 border border-rose-100">
+        <button id="openLetterBtn" onclick="toggleLetter()" class="w-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-rose-500/25 transition-all transform active:scale-98 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-envelope-open-text text-lg"></i>
+          <span id="btnText">Haz clic para abrir tu carta secreta</span>
+        </button>
+
+        <div id="letterContent" class="letter transition-all duration-500 ease-in-out">
+          <div class="bg-amber-50/90 border border-amber-200/60 rounded-xl p-5 mt-4 shadow-sm relative text-slate-700 leading-relaxed text-sm">
+            <div class="absolute -top-3 right-4 bg-rose-500 text-white w-7 h-7 rounded-full flex items-center justify-center shadow-md">
+              <i class="fa-solid fa-heart text-xs"></i>
+            </div>
+
+            <p class="font-bold text-slate-800 mb-2 border-b border-amber-200/80 pb-2 text-base">
+              💌 ¡Aquí irá escrita tu dedicatoria!
+            </p>
+            
+            <p class="mb-3">
+              En este apartado colocaremos la carta que nos escribas para tu pareja. Puedes contar vuestra historia, recordar anécdotas o expresarle todo lo que sientes.
+            </p>
+            
+            <p class="italic text-slate-600 bg-white/60 p-3 rounded-lg border border-amber-200/40 mb-3">
+              "Ejemplo: Gracias por ser mi compañero/a de vida, por cada sonrisa y por cada momento inolvidable juntos. ¡Por muchos años más compartiendo sueños!"
+            </p>
+
+            <div class="text-right font-romantic text-xl text-rose-600 font-bold mt-2">
+              Te quiero siempre, [Tu Nombre] ❤️
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Photo Album Section -->
+    <div class="mb-6">
+      <div class="flex items-center justify-between mb-3 px-1">
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+          📸 Vuestro Álbum de Fotos
+        </span>
+        <span class="text-[11px] text-rose-500 font-medium">Acceso directo en 1 clic</span>
+      </div>
+
+      <!-- Gallery Thumbnail Previews -->
+      <div class="grid grid-cols-3 gap-2 mb-3">
+        <div class="aspect-square rounded-xl overflow-hidden shadow-sm relative group bg-rose-100">
+          <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=300&q=80" alt="Demo photo 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+        </div>
+        <div class="aspect-square rounded-xl overflow-hidden shadow-sm relative group bg-rose-100">
+          <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=300&q=80" alt="Demo photo 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+        </div>
+        <div class="aspect-square rounded-xl overflow-hidden shadow-sm relative group bg-rose-100">
+          <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=300&q=80" alt="Demo photo 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+        </div>
+      </div>
+
+      <!-- Action Button to External Album -->
+      <a href="https://unsplash.com/es/colecciones/3330448/romantic" target="_blank" rel="noopener font-semibold" class="w-full bg-slate-900 hover:bg-slate-800 text-white py-3.5 px-4 rounded-xl shadow-md flex items-center justify-center gap-2 text-xs sm:text-sm transition-all transform active:scale-98">
+        <i class="fa-solid fa-images text-rose-400"></i>
+        <span>Abrir vuestro Álbum de Fotos Completo (Google/iCloud)</span>
+        <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-70 ml-1"></i>
+      </a>
+    </div>
+
+    <!-- Footer Branding -->
+    <div class="text-center border-t border-slate-200/80 pt-4 mt-6">
+      <p class="text-xs text-slate-400 flex items-center justify-center gap-1 font-medium">
+        Creado con ❤️ por <span class="font-bold text-slate-600">TuRegaloDigital</span>
+      </p>
+      <p class="text-[10px] text-slate-400 mt-0.5">
+        Regalos interactivos inolvidables • Servicio 100% personalizado
+      </p>
+    </div>
+
+  </main>
+
+  <script>
+    // Create floating hearts particles dynamically
+    function createHearts() {
+      const container = document.getElementById('heartsContainer');
+      const heartIcons = ['fa-heart', 'fa-sparkles', 'fa-heart text-xs'];
+      
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement('i');
+        const randomIcon = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+        heart.className = `fa-solid ${randomIcon} heart-particle`;
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.animationDelay = `${Math.random() * 8}s`;
+        heart.style.fontSize = `${Math.random() * 12 + 10}px`;
+        container.appendChild(heart);
+      }
+    }
+
+    // Relationship Counter Logic (Project creation start: Oct 14, 2026)
+    const startDate = new Date('2026-10-14T00:00:00');
+
+    function updateCounter() {
+      const now = new Date();
+      if (now < startDate) return;
+
+      let years = now.getFullYear() - startDate.getFullYear();
+      let months = now.getMonth() - startDate.getMonth();
+      let days = now.getDate() - startDate.getDate();
+      let hours = now.getHours() - startDate.getHours();
+      let minutes = now.getMinutes() - startDate.getMinutes();
+      let seconds = now.getSeconds() - startDate.getSeconds();
+
+      if (seconds < 0) { seconds += 60; minutes--; }
+      if (minutes < 0) { minutes += 60; hours--; }
+      if (hours < 0) { hours += 24; days--; }
+      if (days < 0) {
+        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += prevMonth.getDate();
+        months--;
+      }
+      if (months < 0) { months += 12; years--; }
+
+      document.getElementById('years').innerText = years;
+      document.getElementById('months').innerText = months;
+      document.getElementById('days').innerText = days;
+      document.getElementById('hours').innerText = hours;
+      document.getElementById('minutes').innerText = minutes;
+      document.getElementById('seconds').innerText = seconds;
+    }
+
+    // Toggle Letter Opening/Closing
+    function toggleLetter() {
+      const letter = document.getElementById('letterContent');
+      const btnText = document.getElementById('btnText');
+      
+      if (letter.style.maxHeight && letter.style.maxHeight !== '0px') {
+        letter.style.maxHeight = '0px';
+        letter.style.opacity = '0';
+        btnText.innerText = 'Haz clic para abrir tu carta secreta';
+      } else {
+        letter.style.maxHeight = '800px';
+        letter.style.opacity = '1';
+        btnText.innerText = 'Cerrar carta secreta';
+      }
+    }
+
+    // Audio Player Toggle Simulation
+    let isPlaying = false;
+    document.getElementById('musicToggle').addEventListener('click', function() {
+      const icon = document.getElementById('musicIcon');
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        icon.className = 'fa-solid fa-pause text-sm ml-0.5';
+      } else {
+        icon.className = 'fa-solid fa-play text-sm ml-0.5';
+      }
+    });
+
+    // Initialize scripts on window load
+    window.onload = function() {
+      createHearts();
+      setInterval(updateCounter, 1000);
+      updateCounter();
+    };
+  </script>
+</body>
+</html>
